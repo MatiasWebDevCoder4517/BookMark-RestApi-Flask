@@ -1,15 +1,3 @@
-from flask import Flask, jsonify, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-import random
+from api import create_app
 
-app = Flask(__name__)
-
-
-@app.get("/")
-def home():
-    return "Hello World"
-
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+application = create_app()
