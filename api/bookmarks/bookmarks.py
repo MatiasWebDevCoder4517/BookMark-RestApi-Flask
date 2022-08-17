@@ -6,7 +6,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from api.db.database import Bookmark, db
 from flasgger import swag_from
 
-bookmarks = Blueprint("bookmarks", __name__, url_prefix="/api/api_v1/bookmarks")
+bookmarks = Blueprint("bookmarks", __name__, url_prefix="/api/v1/bookmarks")
 
 
 @bookmarks.route('/', methods=['POST', 'GET'])
@@ -111,7 +111,7 @@ def delete_bookmark(id):
     db.session.delete(bookmark)
     db.session.commit()
 
-    return jsonify({'message': 'Item deleted'}), HTTP_204_NO_CONTENT
+    return jsonify({}), HTTP_204_NO_CONTENT
 
 
 @bookmarks.put('/<int:id>')
@@ -151,7 +151,7 @@ def editbookmark(id):
 
 @bookmarks.get("/stats")
 @jwt_required()
-@swag_from("./resources/docs/bookmarks/stats.yaml")
+@swag_from("docs/bookmarks/stats.yaml")
 def get_stats():
     current_user = get_jwt_identity()
 

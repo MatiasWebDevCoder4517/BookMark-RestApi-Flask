@@ -2,8 +2,8 @@ from flask.json import jsonify
 from api.constants.http_status_codes import HTTP_404_NOT_FOUND, HTTP_500_INTERNAL_SERVER_ERROR
 from flask import Flask, config, redirect
 import os
-from api.api_v1.auth import auth
-from api.api_v1.bookmarks import bookmarks
+from api.auth.auth import auth
+from api.bookmarks.bookmarks import bookmarks
 from api.db.database import db, Bookmark
 from flask_jwt_extended import JWTManager
 from flasgger import Swagger, swag_from
@@ -40,7 +40,7 @@ def create_app(test_config=None):
     Swagger(app, config=swagger_config, template=template)
 
     @app.get('/<short_url>')
-    @swag_from('./resources/docs/short_url.yaml')
+    @swag_from('./docs/short_url.yaml')
     def redirect_to_url(short_url):
         bookmark = Bookmark.query.filter_by(short_url=short_url).first_or_404()
 
